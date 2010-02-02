@@ -2,3 +2,8 @@ syntax: glob
 
 *.pyc
 .DS_Store
+
+syntax: regexp
+^build$
+^dist$
+^django_ckeditor.egg-info$
