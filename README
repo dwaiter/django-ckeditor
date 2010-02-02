@@ -1,0 +1,12 @@
+TODO: More documentation.
+
+Setup
+-----
+
+Install the package:
+
+    pip install -e hg+ssh://hg@codebasehq.com/dwaiter/util/django-ckeditor.hg#egg=django-ckeditor
+
+Symlink the necessary media:
+
+    ln -s [/full/path/to]/django-ckeditor/ckeditor/media/ckeditor project/media/ckeditor
