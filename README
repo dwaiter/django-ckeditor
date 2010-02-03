@@ -7,6 +7,40 @@ Install the package:
 
     pip install -e hg+ssh://hg@codebasehq.com/dwaiter/util/django-ckeditor.hg#egg=django-ckeditor
 
-Symlink the necessary media:
+Symlink the necessary media and templates:
 
-    ln -s [/full/path/to]/django-ckeditor/ckeditor/media/ckeditor project/media/ckeditor
+    ln -s [/full/path/to]/django-ckeditor/ckeditor/media/ckeditor media/ckeditor
+    ln -s [/full/path/to]/django-ckeditor/ckeditor/templates/ckeditor templates/ckeditor
+
+Add the url config to your site-level `urls.py`:
+
+    urlpatterns = patterns('',
+        # ...
+        url(r'^ckeditor/', include('ckeditor.urls')),
+        # ...
+    )
+
+Add a `CKEDITOR_CONFIG` variable to your `settings.py`:
+
+    CKEDITOR_CONFIG = { 
+        'toolbar': [
+            [      'Undo', 'Redo',
+              '-', 'Bold', 'Italic', 'Underline',
+              '-', 'Link', 'Unlink', 'Anchor',
+              '-', 'Format',
+              '-', 'SpellChecker', 'Scayt',
+              '-', 'Maximize',
+            ],
+            [      'HorizontalRule',
+              '-', 'Table',
+              '-', 'BulletedList', 'NumberedList',
+              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
+              '-', 'SpecialChar',
+              '-', 'Source',
+              '-', 'About',
+            ]
+        ],
+        'width': 840,
+        'height': 300,
+        'toolbarCanCollapse': False,
+    }
