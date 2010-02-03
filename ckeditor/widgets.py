@@ -13,7 +13,7 @@ class CKEditor(forms.Textarea):
     class Media:
         js = (
             settings.MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor/ckeditor.js',
-            settings.MEDIA_URL.rstrip('/') + '/ckeditor/init.js',
+            '/ckeditor/init.js',
         )
 
 
