@@ -9,9 +9,17 @@ fields.
 Setup
 -----
 
-Install the package:
+Install the package with [pip][] and [Mercurial][] or [git][]:
 
-    pip install -e hg+ssh://hg@codebasehq.com/dwaiter/util/django-ckeditor.hg#egg=django-ckeditor
+    pip install -e hg+http://bitbucket.org/dwaiter/django-ckeditor#egg=django-ckeditor
+    
+    # or ...
+    
+    pip install -e git://github.com/dwaiter/django-ckeditor.git#egg=django-ckeditor
+
+[pip]: http://pip.openplans.org/
+[Mercurial]: http://hg-scm.org/
+[git]: http://git-scm.com/
 
 Symlink the necessary media and templates:
 

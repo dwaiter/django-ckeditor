@@ -9,15 +9,22 @@ except ImportError, e:
 
 README_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README')
 
+description = 'A small Django application that makes it easy to use CKEditor for form textareas.'
+
+if os.path.exists(README_PATH):
+    long_description = open(README_PATH).read()
+else:
+    long_description = description
+
+
 setup(
     name='django-ckeditor',
-    version='0.0.2',
+    version='0.9.1',
     install_requires=install_requires,
-    description='A small Django application which makes it easy to use '
-                'CKEditor for form textareas.',
-    long_description=open(README_PATH).read(),
+    description=description,
+    long_description=long_description,
     author='Dumbwaiter Design',
     author_email='dev@dwaiter.com',
-    url='https://dwaiter.codebasehq.com/util/django-ckeditor/',
+    url='http://bitbucket.org/dwaiter/django-ckeditor/',
     packages=['ckeditor'],
 )
