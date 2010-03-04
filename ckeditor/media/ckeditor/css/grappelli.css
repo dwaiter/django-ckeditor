@@ -2,6 +2,8 @@ fieldset div.form-row div span.cke_skin_kama {
     border: 0;
     clear: left;
     padding: 0 !important;
+    clear: none;
+    float: left;
 }
 span.cke_skin_kama span.cke_wrapper {
     background-color: #EEEEEE !important; 
