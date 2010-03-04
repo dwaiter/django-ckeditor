@@ -1,7 +1,10 @@
 django-ckeditor
 ===============
 
-`django-ckeditor` makes it easy to use CKEditor with your Django text fields.
+`django-ckeditor` makes it easy to use [CKEditor][] with your Django text
+fields.
+
+[CKEditor]: http://ckeditor.com/
 
 Setup
 -----
