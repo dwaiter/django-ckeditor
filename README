@@ -1,4 +1,7 @@
-TODO: More documentation.
+django-ckeditor
+===============
+
+`django-ckeditor` makes it easy to use CKEditor with your Django text fields.
 
 Setup
 -----
@@ -12,35 +15,115 @@ Symlink the necessary media and templates:
     ln -s [/full/path/to]/django-ckeditor/ckeditor/media/ckeditor media/ckeditor
     ln -s [/full/path/to]/django-ckeditor/ckeditor/templates/ckeditor templates/ckeditor
 
-Add the url config to your site-level `urls.py`:
+Add `ckeditor` to your `INSTALLED_APPS`.
 
-    urlpatterns = patterns('',
-        # ...
-        url(r'^ckeditor/', include('ckeditor.urls')),
-        # ...
-    )
+Add a `CKEDITOR_CONFIGS` variable to your `settings.py` with at least a
+`default` config:
 
-Add a `CKEDITOR_CONFIG` variable to your `settings.py`:
-
-    CKEDITOR_CONFIG = { 
-        'toolbar': [
-            [      'Undo', 'Redo',
-              '-', 'Bold', 'Italic', 'Underline',
-              '-', 'Link', 'Unlink', 'Anchor',
-              '-', 'Format',
-              '-', 'SpellChecker', 'Scayt',
-              '-', 'Maximize',
+    CKEDITOR_CONFIGS = {
+        'default': {
+            'toolbar': [
+                [      'Undo', 'Redo',
+                  '-', 'Bold', 'Italic', 'Underline',
+                  '-', 'Link', 'Unlink', 'Anchor',
+                  '-', 'Format',
+                  '-', 'SpellChecker', 'Scayt',
+                  '-', 'Maximize',
+                ],
+                [      'HorizontalRule',
+                  '-', 'Table',
+                  '-', 'BulletedList', 'NumberedList',
+                  '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
+                  '-', 'SpecialChar',
+                  '-', 'Source',
+                  '-', 'About',
+                ]
             ],
-            [      'HorizontalRule',
-              '-', 'Table',
-              '-', 'BulletedList', 'NumberedList',
-              '-', 'Cut','Copy','Paste','PasteText','PasteFromWord',
-              '-', 'SpecialChar',
-              '-', 'Source',
-              '-', 'About',
-            ]
-        ],
-        'width': 840,
-        'height': 300,
-        'toolbarCanCollapse': False,
+            'width': 840,
+            'height': 300,
+            'toolbarCanCollapse': False,
+        }
     }
+
+Usage
+-----
+
+To use CKEditor for a particular field in a form, set its widget to an
+instance of `ckeditor.widgets.CKEditor` like this:
+
+    from ckeditor.widgets import CKEditor
+    
+    class SampleForm(forms.Form):
+        body = forms.CharField(
+            widget=CKEditor()
+        )
+    
+
+As a shortcut you can use a `ckeditor.fields.HTMLField` instead of
+`django.db.models.TextField` in a model to automatically use the CKEditor
+widget, like so:
+
+    from django.db import models
+    from ckeditor.fields import HTMLField
+    
+    class Sample(models.Model):
+        # This will use a normal <textarea> when rendered in a (Model)Form
+        plain_body = models.TextField(blank=True, verbose_name='plain version')
+        
+        # This will use CKEditor when rendered in a (Model)Form
+        html_body = HTMLField(blank=True, verbose_name='HTML version')
+
+Custom Configurations
+---------------------
+
+Sometimes it's nice to be able to configure each CKEditor widget separately.
+For example, you may want one field to have all the buttons on the toolbar,
+but another field to only show bold/italic/underline buttons.
+
+To do this, add additional configurations to your `CKEDITOR_CONFIGS` setting
+like this:
+
+    CKEDITOR_CONFIGS = {
+        'default': {
+            'toolbar': [
+                [      'Undo', 'Redo',
+                  '-', 'Bold', 'Italic', 'Underline',
+                  '-', 'Link', 'Unlink', 'Anchor',
+                  '-', 'Format',
+                  '-', 'SpellChecker', 'Scayt',
+                  '-', 'Maximize',
+                ],
+            ],
+            'width': 840,
+            'height': 300,
+            'toolbarCanCollapse': False,
+        },
+        
+        'simple_toolbar': {
+            'toolbar': [
+                [ 'Bold', 'Italic', 'Underline' ],
+            ],
+            'width': 840,
+            'height': 300,
+        },
+    }
+
+When setting up the `CKEditor` widget in your `Form` class you can pass a
+`ckeditor_config` keyword argument to specify the config to use:
+
+    class BlogPostForm(forms.Form):
+        title = forms.CharField()
+        
+        # This field will render as a CKEditor with the 'simple_toolbar' config.
+        subtitle = forms.CharField(
+            widget=CKEditor(ckeditor_config='simple_toolbar')
+        )
+        
+        # This field will render as a CKEditor with the 'default' config.
+        body = forms.CharField(
+            widget=CKEditor()
+        )
+    
+
+You cannot use the `HTMLField` shortcut if you want to specify a custom config
+-- you *must* create a form.

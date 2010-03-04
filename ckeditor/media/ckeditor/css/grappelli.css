@@ -1,0 +1,16 @@
+fieldset div.form-row div span.cke_skin_kama {
+    border: 0;
+    clear: left;
+    padding: 0 !important;
+}
+span.cke_skin_kama span.cke_wrapper {
+    background-color: #EEEEEE !important; 
+    background-image: none !important;
+    padding: 10px 0 0 0 !important;
+}
+span.cke_skin_kama span.cke_maximized span.cke_wrapper {
+    padding: 10px !important;
+}
+span.cke_wrapper iframe {
+    border: 1px solid #CACACA;
+}
