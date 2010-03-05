@@ -1,8 +1,6 @@
 fieldset div.form-row div span.cke_skin_kama {
     border: 0;
-    clear: left;
     padding: 0 !important;
-    clear: none;
     float: left;
 }
 span.cke_skin_kama span.cke_wrapper {
@@ -15,4 +13,7 @@ span.cke_skin_kama span.cke_maximized span.cke_wrapper {
 }
 span.cke_wrapper iframe {
     border: 1px solid #CACACA;
+}
+.help {
+    clear: left;
 }
