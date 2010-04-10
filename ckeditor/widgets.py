@@ -12,21 +12,20 @@ from django.utils.safestring import mark_safe
 
 CKEDITOR_CONFIGS = dict((k, json.dumps(v)) for k, v in settings.CKEDITOR_CONFIGS.items())
 FILEBROWSER_PRESENT = 'filebrowser' in getattr(settings, 'INSTALLED_APPS', [])
+GRAPPELLI_PRESENT = 'grappelli' in getattr(settings, 'INSTALLED_APPS', [])
 
+_CSS_FILE = 'grappelli.css' if GRAPPELLI_PRESENT else 'standard.css'
 
 class CKEditor(forms.Textarea):
     def __init__(self, *args, **kwargs):
-        attrs = kwargs['attrs'] if 'attrs' in kwargs else {}
+        attrs = kwargs.get('attrs', {})
         attrs['class'] = 'django-ckeditor'
         kwargs['attrs'] = attrs
-        
-        if 'ckeditor_config' in kwargs:
-            self.ckeditor_config = kwargs.pop('ckeditor_config')
-        else:
-            self.ckeditor_config = 'default'
-        
+
+        self.ckeditor_config = kwargs.pop('ckeditor_config', 'default')
+
         super(CKEditor, self).__init__(*args, **kwargs)
-    
+
     def render(self, name, value, attrs=None, **kwargs):
         rendered = super(CKEditor, self).render(name, value, attrs)
         context = {
@@ -37,17 +36,17 @@ class CKEditor(forms.Textarea):
         return rendered +  mark_safe(render_to_string(
             'ckeditor/ckeditor_script.html', context
         ))
-    
+
     class Media:
         js = (
             settings.MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor/ckeditor.js',
         )
         css = {
             'screen': (
-                settings.MEDIA_URL.rstrip('/') + '/ckeditor/css/grappelli.css',
+                settings.MEDIA_URL.rstrip('/') + '/ckeditor/css/' + _CSS_FILE,
             ),
         }
-    
+
 
 
 class AdminCKEditor(admin_widgets.AdminTextareaWidget, CKEditor):
