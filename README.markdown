@@ -138,3 +138,13 @@ When setting up the `CKEditor` widget in your `Form` class you can pass a
 
 You cannot use the `HTMLField` shortcut if you want to specify a custom config
 -- you *must* create a form.
+
+### Media URL
+
+You can also customize the URL that django-ckeditor will look for the CKEditor
+media at by adding `CKEDITOR_MEDIA_URL` to your `settings.py` file like this:
+
+    CKEDITOR_MEDIA_URL = '/static/third-party/ckeditor'
+
+The default value is `MEDIA_URL/ckeditor` which is why the setup instructions
+tell you to symlink it into your `media/` directory.
