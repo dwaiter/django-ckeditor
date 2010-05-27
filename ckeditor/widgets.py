@@ -42,11 +42,11 @@ class CKEditor(forms.Textarea):
 
     class Media:
         js = (
-            MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor/ckeditor.js',
+            MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor.js',
         )
         css = {
             'screen': (
-                MEDIA_URL.rstrip('/') + '/ckeditor/css/' + _CSS_FILE,
+                MEDIA_URL.rstrip('/') + '/css/' + _CSS_FILE,
             ),
         }
 
