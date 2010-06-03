@@ -4,6 +4,7 @@ syntax: glob
 .DS_Store
 .project
 .pydevproject
+*.swp
 
 syntax: regexp
 ^build$

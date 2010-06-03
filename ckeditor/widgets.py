@@ -13,6 +13,9 @@ from django.utils.safestring import mark_safe
 CKEDITOR_CONFIGS = dict((k, json.dumps(v)) for k, v in settings.CKEDITOR_CONFIGS.items())
 FILEBROWSER_PRESENT = 'filebrowser' in getattr(settings, 'INSTALLED_APPS', [])
 GRAPPELLI_PRESENT = 'grappelli' in getattr(settings, 'INSTALLED_APPS', [])
+MEDIA_URL = getattr(
+    settings, 'CKEDITOR_MEDIA_URL', '%s/ckeditor' % settings.MEDIA_URL.rstrip('/')
+)
 
 _CSS_FILE = 'grappelli.css' if GRAPPELLI_PRESENT else 'standard.css'
 
@@ -39,11 +42,11 @@ class CKEditor(forms.Textarea):
 
     class Media:
         js = (
-            settings.MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor/ckeditor.js',
+            MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor.js',
         )
         css = {
             'screen': (
-                settings.MEDIA_URL.rstrip('/') + '/ckeditor/css/' + _CSS_FILE,
+                MEDIA_URL.rstrip('/') + '/css/' + _CSS_FILE,
             ),
         }
 
