@@ -36,14 +36,14 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			},
 			this);
 
-		this.definition =
+		this._.definiton =
 		{
 			panel:
 			{
 				className : editor.skinClass + ' cke_contextmenu',
 				attributes :
 				{
-					'aria-label' : editor.lang.contextmenu.options
+					'aria-label' : editor.lang.common.options
 				}
 			}
 		};
@@ -63,7 +63,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 			}
 			else
 			{
-				menu = this._.menu = new CKEDITOR.menu( editor, this.definition );
+				menu = this._.menu = new CKEDITOR.menu( editor, this._.definiton );
 				menu.onClick = CKEDITOR.tools.bind( function( item )
 				{
 					menu.hide();
@@ -167,7 +167,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					}
 
 					if ( nativeContextMenuOnCtrl
-						 && ( CKEDITOR.env.mac ? evt.$.metaKey : evt.$.ctrlKey ) )
+						 && ( evt.$.ctrlKey || evt.$.metaKey ) )
 						return;
 
 					var target = evt.getTarget();
@@ -205,9 +205,16 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 					if ( nativeContextMenuOnCtrl &&
 					     // Safari on Windows always show 'ctrlKey' as true in 'contextmenu' event,
 						// which make this property unreliable. (#4826)
-					     ( CKEDITOR.env.webkit ? holdCtrlKey : ( CKEDITOR.env.mac ? domEvent.$.metaKey : domEvent.$.ctrlKey ) ) )
+					     ( CKEDITOR.env.webkit ? holdCtrlKey : domEvent.$.ctrlKey || domEvent.$.metaKey ) )
 						return;
 
+					// Selection will be unavailable after context menu shows up
+					// in IE, lock it now.
+					if ( CKEDITOR.env.ie )
+					{
+						var selection = this.editor.getSelection();
+						selection && selection.lock();
+					}
 
 					// Cancel the browser context menu.
 					domEvent.preventDefault();
@@ -229,7 +236,7 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 				var holdCtrlKey,
 					onKeyDown = function( event )
 					{
-						holdCtrlKey = CKEDITOR.env.mac ? event.data.$.metaKey : event.data.$.ctrlKey ;
+						holdCtrlKey = event.data.$.ctrlKey || event.data.$.metaKey;
 					},
 					resetOnKeyUp = function()
 					{
@@ -250,15 +257,6 @@ CKEDITOR.plugins.contextMenu = CKEDITOR.tools.createClass(
 		show : function( offsetParent, corner, offsetX, offsetY )
 		{
 			this.editor.focus();
-
-			// Selection will be unavailable after context menu shows up
-			// in IE, lock it now.
-			if ( CKEDITOR.env.ie )
-			{
-				var selection = this.editor.getSelection();
-				selection && selection.lock();
-			}
-
 			this._.onMenu( offsetParent || CKEDITOR.document.getDocumentElement(), corner, offsetX || 0, offsetY || 0 );
 		}
 	}

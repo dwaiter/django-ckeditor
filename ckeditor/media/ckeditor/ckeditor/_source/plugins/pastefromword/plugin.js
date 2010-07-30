@@ -35,8 +35,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								resetFromWord();
 							});
 					}
-					else
-						resetFromWord();
 				}
 			});
 

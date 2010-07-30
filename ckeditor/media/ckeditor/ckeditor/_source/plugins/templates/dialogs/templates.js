@@ -41,10 +41,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						'</a>' );
 
 				// Build the inner HTML of our new item DIV.
-				var html = '<table style="width:350px;" class="cke_tpl_preview" role="presentation"><tr>';
+				var html = '<table style="width:350px;" class="cke_tpl_preview"><tr>';
 
 				if ( template.image && imagesPath )
-					html += '<td class="cke_tpl_preview_img"><img src="' + CKEDITOR.getUrl( imagesPath + template.image ) + '"' + ( CKEDITOR.env.ie6Compat? ' onload="this.width=this.width"' : '' ) + ' alt="" title=""></td>';
+					html += '<td class="cke_tpl_preview_img"><img src="' + CKEDITOR.getUrl( imagesPath + template.image ) + '"></td>';
 
 				html += '<td style="white-space:normal;"><span class="cke_tpl_title">' + template.title + '</span><br/>';
 
@@ -100,10 +100,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			function keyNavigation( evt )
 			{
 				var target = evt.data.getTarget(),
-						onList = listContainer.equals( target );
+					position = listContainer.getPosition( target );
 
 				// Keyboard navigation for template list.
-				if (  onList || listContainer.contains( target ) )
+				if ( position > CKEDITOR.POSITION_CONTAINS )
 				{
 					var keystroke = evt.data.getKeystroke(),
 						items = listContainer.getElementsByTag( 'a' ),
@@ -111,25 +111,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 					if ( items )
 					{
-						// Focus not yet onto list items?
-						if ( onList )
-							focusItem = items.getItem( 0 );
-						else
+						switch ( keystroke )
 						{
-							switch ( keystroke )
-							{
-								case 40 :					// ARROW-DOWN
-									focusItem = target.getNext();
-									break;
+							case 40 :					// ARROW-DOWN
+								focusItem = target.getNext();
+								break;
 
-								case 38 :					// ARROW-UP
-									focusItem = target.getPrevious();
-									break;
+							case 38 :					// ARROW-UP
+								focusItem = target.getPrevious();
+								break;
 
-								case 13 :					// ENTER
-								case 32 :					// SPACE
-									target.fire( 'click' );
-							}
+							case 13 :					// ENTER
+							case 32 :					// SPACE
+								target.fire( 'click' );
 						}
 
 						if ( focusItem )
@@ -146,7 +140,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			var listContainer;
 
-			var templateListLabelId = 'cke_tpl_list_label_' + CKEDITOR.tools.getNextNumber();
 			return {
 				title :editor.lang.templates.title,
 
@@ -175,12 +168,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										id : "templatesList",
 										type : 'html',
-										focus: true,
+										focus: function()
+										{
+											// Move focus to the first list item if available.
+											try { this.getElement().getElementsByTag( 'a' ).getItem( 0 ).focus(); }
+											catch( er ){}
+										},
 										html :
-											'<div class="cke_tpl_list" tabIndex="-1" role="listbox" aria-labelledby="' + templateListLabelId+ '">' +
+											'<div class="cke_tpl_list" tabIndex="-1" role="listbox" aria-labelledby="cke_tpl_list_label">' +
 												'<div class="cke_tpl_loading"><span></span></div>' +
 											'</div>' +
-											'<span class="cke_voice_label" id="' + templateListLabelId + '">' + editor.lang.templates.options+ '</span>'
+											'<span class="cke_voice_label" id="cke_tpl_list_label">' + editor.lang.common.options+ '</span>'
 									},
 									{
 										id : 'chkInsertOpt',

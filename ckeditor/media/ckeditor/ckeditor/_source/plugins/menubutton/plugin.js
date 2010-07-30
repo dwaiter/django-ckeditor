@@ -36,7 +36,6 @@ CKEDITOR.UI_MENUBUTTON = 5;
 		if ( !menu )
 		{
 			menu = _.menu = new CKEDITOR.plugins.contextMenu( editor );
-			menu.definition.panel.attributes[ 'aria-label' ] = editor.lang.common.options;
 
 			menu.onHide = CKEDITOR.tools.bind( function()
 				{

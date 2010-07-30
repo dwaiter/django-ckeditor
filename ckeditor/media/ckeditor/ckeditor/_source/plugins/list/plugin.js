@@ -29,7 +29,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			if ( !baseArray )
 				baseArray = [];
 
-			// Iterate over all list items to and look for inner lists.
+			// Iterate over all list items to get their contents and look for inner lists.
 			for ( var i = 0, count = listNode.getChildCount() ; i < count ; i++ )
 			{
 				var listItem = listNode.getChild( i );
@@ -37,8 +37,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// It may be a text node or some funny stuff.
 				if ( listItem.$.nodeName.toLowerCase() != 'li' )
 					continue;
-
-				var itemObj = { 'parent' : listNode, indent : baseIndentLevel, element : listItem, contents : [] };
+				var itemObj = { 'parent' : listNode, indent : baseIndentLevel, contents : [] };
 				if ( !grandparentNode )
 				{
 					itemObj.grandparent = listNode.getParent();
@@ -52,9 +51,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					CKEDITOR.dom.element.setMarker( database, listItem, 'listarray_index', baseArray.length );
 				baseArray.push( itemObj );
 
-				for ( var j = 0, itemChildCount = listItem.getChildCount(), child; j < itemChildCount ; j++ )
+				for ( var j = 0, itemChildCount = listItem.getChildCount() ; j < itemChildCount ; j++ )
 				{
-					child = listItem.getChild( j );
+					var child = listItem.getChild( j );
 					if ( child.type == CKEDITOR.NODE_ELEMENT && listNodeNames[ child.getName() ] )
 						// Note the recursion here, it pushes inner list items with
 						// +1 indentation in the correct order.
@@ -90,7 +89,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						rootNode = listArray[ currentIndex ].parent.clone( false, true );
 						retval.append( rootNode );
 					}
-					currentListItem = rootNode.append( item.element.clone( false, true ) );
+					currentListItem = rootNode.append( doc.createElement( 'li' ) );
 					for ( var i = 0 ; i < item.contents.length ; i++ )
 						currentListItem.append( item.contents[i].clone( true, true ) );
 					currentIndex++;
@@ -105,10 +104,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					currentListItem;
 					if ( listNodeNames[ item.grandparent.getName() ] )
-						currentListItem = item.element.clone( false, true );
+						currentListItem = doc.createElement( 'li' );
 					else
 					{
-						// Create completely new blocks here, attributes are dropped.
 						if ( paragraphMode != CKEDITOR.ENTER_BR && item.grandparent.getName() != 'td' )
 							currentListItem = doc.createElement( paragraphName );
 						else
@@ -234,8 +232,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		newList.listNode.replace( groupObj.root );
 	}
 
-	var headerTagRegex = /^h[1-6]$/;
-
 	function createList( editor, groupObj, listsCreated )
 	{
 		var contents = groupObj.contents,
@@ -287,17 +283,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var contentBlock = listContents.shift(),
 				listItem = doc.createElement( 'li' );
-
-			// Preserve heading structure when converting to list item. (#5271)
-			if ( headerTagRegex.test( contentBlock.getName() ) )
-				contentBlock.appendTo( listItem );
-			else
-			{
-				contentBlock.copyAttributes( listItem );
-				contentBlock.moveChildren( listItem );
-				contentBlock.remove();
-			}
-
+			contentBlock.moveChildren( listItem );
+			contentBlock.remove();
 			listItem.appendTo( listNode );
 
 			// Append a bogus BR to force the LI to render at full height

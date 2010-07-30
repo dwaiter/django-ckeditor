@@ -51,7 +51,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					});
 			}
 
-			if ( CKEDITOR.env.webkit || CKEDITOR.env.gecko )
+			if ( CKEDITOR.env.webkit )
 			{
 				editor.on( 'key', function( ev )
 					{

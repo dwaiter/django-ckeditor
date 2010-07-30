@@ -11,23 +11,18 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 	function onPasteFrameLoad( win )
 	{
 		var doc =  new CKEDITOR.dom.document( win.document ),
-			docElement = doc.$;
+			$ = doc.$;
 
 		doc.getById( "cke_actscrpt" ).remove();
 
 		CKEDITOR.env.ie ?
-			docElement.body.contentEditable = "true" :
-			docElement.designMode = "on";
+			$.body.contentEditable = "true" :
+			$.designMode = "on";
 
-		// IE before version 8 will leave cursor blinking inside the document after
-		// editor blurred unless we clean up the selection. (#4716)
-		if ( CKEDITOR.env.ie && CKEDITOR.env.version < 8 )
+		CKEDITOR.env.ie && doc.getWindow().on( 'blur', function()
 		{
-			doc.getWindow().on( 'blur', function()
-			{
-				docElement.selection.empty();
-			} );
-		}
+			 $.body.contentEditable = "false";
+		} );
 
 		doc.on( "keydown", function( e )
 		{
@@ -65,14 +60,10 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 			// inserted iframe editable. (#3366)
 			this.parts.dialog.$.offsetHeight;
 
-			var htmlToLoad =
-				'<html dir="' + editor.config.contentsLangDirection + '"' +
-				' lang="' + ( editor.config.contentsLanguage || editor.langCode ) + '">' +
-					'<head><style>body { margin: 3px; height: 95%; } </style></head><body>' +
-					'<script id="cke_actscrpt" type="text/javascript">' +
-					'window.parent.CKEDITOR.tools.callFunction( ' + CKEDITOR.tools.addFunction( onPasteFrameLoad, this ) + ', this );' +
-					'</script></body>' +
-				'</html>';
+			var htmlToLoad = '<!doctype html><html><head><style>body { margin: 3px; height: 95%; } </style></head><body>' +
+							 '<script id="cke_actscrpt" type="text/javascript">' +
+							 'window.parent.CKEDITOR.tools.callFunction( ' + CKEDITOR.tools.addFunction( onPasteFrameLoad, this ) + ', this );' +
+							 '</script></body></html>';
 
 			var iframe = CKEDITOR.dom.element.createFromHtml(
 						'<iframe' +
@@ -116,25 +107,6 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 				container = field.getElement();
 			container.setHtml( '' );
 			container.append( iframe );
-
-			// IE need a redirect on focus to make
-			// the cursor blinking inside iframe. (#5461)
-			if ( CKEDITOR.env.ie )
-			{
-				var focusGrabber = CKEDITOR.dom.element.createFromHtml( '<span tabindex="-1" style="position:absolute;" role="presentation"></span>' );
-				focusGrabber.on( 'focus', function()
-				{
-					iframe.$.contentWindow.focus();
-				});
-				container.append( focusGrabber );
-
-				// Override focus handler on field.
-				field.focus = function()
-				{
-					focusGrabber.focus();
-					this.fire( 'focus' );
-				};
-			}
 
 			field.getInputElement = function(){ return iframe; };
 
@@ -193,13 +165,16 @@ CKEDITOR.dialog.add( 'paste', function( editor )
 						html : '',
 						focus : function()
 						{
-							var win = this.getInputElement().$.contentWindow;
+							var win = this.getInputElement().$.contentWindow,
+								 body = win && win.document.body;
 
 							// #3291 : JAWS needs the 500ms delay to detect that the editor iframe
 							// iframe is no longer editable. So that it will put the focus into the
 							// Paste from Word dialog's editable area instead.
 							setTimeout( function()
 							{
+								// Reactivate design mode for IE to make the cursor blinking.
+								CKEDITOR.env.ie && body && ( body.contentEditable = "true" );
 								win.focus();
 							}, 500 );
 						}

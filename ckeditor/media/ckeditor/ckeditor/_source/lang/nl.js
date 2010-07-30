@@ -31,11 +31,11 @@ CKEDITOR.lang['nl'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Tekstverwerker, %1, druk op ALT 0 voor hulp.',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
 
 	// ARIA descriptions.
-	toolbar	: 'Werkbalk',
-	editor	: 'Tekstverwerker',
+	toolbar	: 'Toolbar', // MISSING
+	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'Code',
@@ -92,42 +92,35 @@ CKEDITOR.lang['nl'] =
 		cssStyle		: 'Stijl',
 		ok				: 'OK',
 		cancel			: 'Annuleren',
-		close			: 'Sluiten',
-		preview			: 'Voorbeeld',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'Algemeen',
 		advancedTab		: 'Geavanceerd',
 		validateNumberFailed : 'Deze waarde is geen geldig getal.',
 		confirmNewPage	: 'Alle aangebrachte wijzigingen gaan verloren. Weet u zeker dat u een nieuwe pagina wilt openen?',
 		confirmCancel	: 'Enkele opties zijn gewijzigd. Weet u zeker dat u dit dialoogvenster wilt sluiten?',
-		options			: 'Opties',
-		target			: 'Doel',
-		targetNew		: 'Nieuw venster (_blank)',
-		targetTop		: 'Hele venster (_top)',
-		targetSelf		: 'Zelfde venster (_self)',
-		targetParent	: 'Origineel venster (_parent)',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, niet beschikbaar</span>'
-	},
-
-	contextmenu :
-	{
-		options : 'Context menu opties'
 	},
 
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: 'Speciaal teken invoegen',
-		title		: 'Selecteer speciaal teken',
-		options : 'Speciale tekens opties'
+		title		: 'Selecteer speciaal teken'
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Link invoegen/wijzigen',
-		other 		: '<ander>',
 		menu		: 'Link wijzigen',
 		title		: 'Link',
 		info		: 'Linkomschrijving',
@@ -135,7 +128,7 @@ CKEDITOR.lang['nl'] =
 		upload		: 'Upload',
 		advanced	: 'Geavanceerd',
 		type		: 'Linktype',
-		toUrl		: 'URL',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Interne link in pagina',
 		toEmail		: 'E-mail',
 		targetFrame		: '<frame>',
@@ -189,29 +182,6 @@ CKEDITOR.lang['nl'] =
 		errorName	: 'Geef de naam van de interne link op'
 	},
 
-	// List style dialog
-	list:
-	{
-		numberedTitle		: 'Numbered List Properties', // MISSING
-		bulletedTitle		: 'Bulleted List Properties', // MISSING
-		type				: 'Type', // MISSING
-		start				: 'Start', // MISSING
-		circle				: 'Circle', // MISSING
-		disc				: 'Disc', // MISSING
-		square				: 'Square', // MISSING
-		none				: 'None', // MISSING
-		notset				: '<not set>', // MISSING
-		armenian			: 'Armenian numbering', // MISSING
-		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
-		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
-		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
-		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
-		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
-		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
-		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
-		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
-	},
-
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -245,7 +215,7 @@ CKEDITOR.lang['nl'] =
 		width		: 'Breedte',
 		widthPx		: 'pixels',
 		widthPc		: 'procent',
-		widthUnit	: 'eenheid breedte',
+		widthUnit	: 'width unit', // MISSING
 		height		: 'Hoogte',
 		cellSpace	: 'Afstand tussen cellen',
 		cellPad		: 'Ruimte in de cel',
@@ -408,7 +378,7 @@ CKEDITOR.lang['nl'] =
 		width		: 'Breedte',
 		height		: 'Hoogte',
 		lockRatio	: 'Afmetingen vergrendelen',
-		unlockRatio	: 'Afmetingen ontgrendelen',
+		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Afmetingen resetten',
 		border		: 'Rand',
 		hSpace		: 'HSpace',
@@ -421,11 +391,11 @@ CKEDITOR.lang['nl'] =
 		button2Img	: 'Wilt u de geselecteerde afbeeldingsknop vervangen door een eenvoudige afbeelding?',
 		img2Button	: 'Wilt u de geselecteerde afbeelding vervangen door een afbeeldingsknop?',
 		urlMissing	: 'De URL naar de afbeelding ontbreekt.',
-		validateWidth	: 'Breedte moet een heel nummer zijn.',
-		validateHeight	: 'Hoogte moet een heel nummer zijn.',
-		validateBorder	: 'Rand moet een heel nummer zijn.',
-		validateHSpace	: 'HSpace moet een heel nummer zijn.',
-		validateVSpace	: 'VSpace moet een heel nummer zijn.'
+		validateWidth	: 'Width must be a whole number.', // MISSING
+		validateHeight	: 'Height must be a whole number.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
@@ -506,13 +476,12 @@ CKEDITOR.lang['nl'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Smiley invoegen',
-		options : 'Smiley opties'
+		title	: 'Smiley invoegen'
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elementenpad',
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 element'
 	},
 
@@ -534,11 +503,11 @@ CKEDITOR.lang['nl'] =
 	clipboard :
 	{
 		title		: 'Plakken',
-		cutError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch knippen. Gebruik de sneltoets Ctrl/Cmd+X van het toetsenbord.',
-		copyError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch kopiëren. Gebruik de sneltoets Ctrl/Cmd+C van het toetsenbord.',
-		pasteMsg	: 'Plak de tekst in het volgende vak gebruik makend van uw toetsenbord (<strong>Ctrl/Cmd+V</strong>) en klik op <strong>OK</strong>.',
+		cutError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch knippen. Gebruik de sneltoets Ctrl+X van het toetsenbord.',
+		copyError	: 'De beveiligingsinstelling van de browser verhinderen het automatisch kopiëren. Gebruik de sneltoets Ctrl+C van het toetsenbord.',
+		pasteMsg	: 'Plak de tekst in het volgende vak gebruik makend van uw toetsenbord (<strong>Ctrl+V</strong>) en klik op <strong>OK</strong>.',
 		securityMsg	: 'Door de beveiligingsinstellingen van uw browser is het niet mogelijk om direct vanuit het klembord in de editor te plakken. Middels opnieuw plakken in dit venster kunt u de tekst alsnog plakken in de editor.',
-		pasteArea	: 'Plakgebied'
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
@@ -559,7 +528,6 @@ CKEDITOR.lang['nl'] =
 	{
 		button			: 'Sjablonen',
 		title			: 'Inhoud sjabonen',
-		options : 'Template opties',
 		insertOption	: 'Vervang de huidige inhoud',
 		selectPromptMsg	: 'Selecteer het sjabloon dat in de editor geopend moet worden (de actuele inhoud gaat verloren):',
 		emptyListMsg	: '(Geen sjablonen gedefinieerd)'
@@ -570,7 +538,7 @@ CKEDITOR.lang['nl'] =
 	stylesCombo :
 	{
 		label		: 'Stijl',
-		panelTitle	: 'Opmaakstijlen',
+		panelTitle	: 'Formatting Styles', // MISSING
 		panelTitle1	: 'Blok stijlen',
 		panelTitle2	: 'In-line stijlen',
 		panelTitle3	: 'Object stijlen'
@@ -628,7 +596,7 @@ CKEDITOR.lang['nl'] =
 	{
 		textColorTitle	: 'Tekstkleur',
 		bgColorTitle	: 'Achtergrondkleur',
-		panelTitle		: 'Kleuren',
+		panelTitle		: 'Colors', // MISSING
 		auto			: 'Automatisch',
 		more			: 'Meer kleuren...'
 	},
@@ -680,7 +648,6 @@ CKEDITOR.lang['nl'] =
 	scayt :
 	{
 		title			: 'Controleer de spelling tijdens het typen',
-		opera_title		: 'Not supported by Opera', // MISSING
 		enable			: 'SCAYT inschakelen',
 		disable			: 'SCAYT uitschakelen',
 		about			: 'Over SCAYT',
@@ -692,23 +659,9 @@ CKEDITOR.lang['nl'] =
 		ignoreAll		: 'Alles negeren',
 		addWord			: 'Woord toevoegen',
 		emptyDic		: 'De naam van het woordenboek mag niet leeg zijn.',
-
 		optionsTab		: 'Opties',
-		allCaps			: 'Ignore All-Caps Words', // MISSING
-		ignoreDomainNames : 'Ignore Domain Names', // MISSING
-		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
-		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
-
 		languagesTab	: 'Talen',
-
 		dictionariesTab	: 'Woordenboeken',
-		dic_field_name	: 'Dictionary name', // MISSING
-		dic_create		: 'Create', // MISSING
-		dic_restore		: 'Restore', // MISSING
-		dic_delete		: 'Delete', // MISSING
-		dic_rename		: 'Rename', // MISSING
-		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
-
 		aboutTab		: 'Over'
 	},
 
@@ -736,7 +689,6 @@ CKEDITOR.lang['nl'] =
 	colordialog :
 	{
 		title		: 'Selecteer kleur',
-		options	:	'Color Options', // MISSING
 		highlight	: 'Actief',
 		selected	: 'Geselecteerd',
 		clear		: 'Wissen'

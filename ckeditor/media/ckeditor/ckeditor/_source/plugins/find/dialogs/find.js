@@ -5,7 +5,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	function nonEmptyText( node )
+	function guardDomWalkerNonEmptyTextNode( node )
 	{
 		return ( node.type == CKEDITOR.NODE_TEXT && node.getLength() > 0 );
 	}
@@ -13,10 +13,11 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	/**
 	 * Elements which break characters been considered as sequence.
 	*/
-	function nonCharactersBoundary ( node )
+	function checkCharactersBoundary ( node )
 	{
-		return !( node.type == CKEDITOR.NODE_ELEMENT && node.isBlockBoundary(
-			CKEDITOR.tools.extend( {}, CKEDITOR.dtd.$empty, CKEDITOR.dtd.$nonEditable ) ) );
+		var dtd = CKEDITOR.dtd;
+		return node.isBlockBoundary(
+			CKEDITOR.tools.extend( {}, dtd.$empty, dtd.$nonEditable ) );
 	}
 
 	/**
@@ -66,11 +67,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	var findDialog = function( editor, startupPage )
 	{
-		// Style object for highlights: (#5018)
-		// 1. Defined as full match style to avoid compromising ordinary text color styles.
-		// 2. Must be apply onto inner-most text to avoid conflicting with ordinary text color styles visually.
-		var highlightStyle = new CKEDITOR.style( CKEDITOR.tools.extend( { fullMatch : true, childRule : function(){ return false; } },
-			editor.config.find_highlight ) );
+		// Style object for highlights.
+		var highlightStyle = new CKEDITOR.style( editor.config.find_highlight );
 
 		/**
 		 * Iterator which walk through the specified range char by char. By
@@ -83,8 +81,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			var walker =
 				new CKEDITOR.dom.walker( range );
-			walker.guard = matchWord ? nonCharactersBoundary : null;
-			walker[ 'evaluator' ] = nonEmptyText;
+			walker[ matchWord ? 'guard' : 'evaluator' ] =
+				guardDomWalkerNonEmptyTextNode;
 			walker.breakOnFalse = true;
 
 			this._ = {
@@ -145,7 +143,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 						// Marking as match character boundaries.
 						if ( !currentTextNode
-						   && !nonCharactersBoundary( this._.walker.current ) )
+						   && checkCharactersBoundary( this._.walker.current ) )
 							this._.matchBoundary = true;
 
 					}
@@ -183,25 +181,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			 */
 			toDomRange : function()
 			{
-				var range = new CKEDITOR.dom.range( editor.document );
 				var cursors = this._.cursors;
 				if ( cursors.length < 1 )
-				{
-					var textNode = this._.walker.textNode;
-					if ( textNode )
-							range.setStartAfter( textNode );
-					else
-						return null;
-				}
-				else
-				{
-					var first = cursors[0],
-							last = cursors[ cursors.length - 1 ];
+					return null;
 
-					range.setStart( first.textNode, first.offset );
-					range.setEnd( last.textNode, last.offset + 1 );
-				}
+				var first = cursors[0],
+					last = cursors[ cursors.length - 1 ],
+					range = new CKEDITOR.dom.range( editor.document );
 
+				range.setStart( first.textNode, first.offset );
+				range.setEnd( last.textNode, last.offset + 1 );
 				return range;
 			},
 			/**
@@ -831,15 +820,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			},
 			onHide : function()
 			{
-				var range;
 				if ( finder.matchRange && finder.matchRange.isMatched() )
 				{
 					finder.matchRange.removeHighlight();
 					editor.focus();
-
-					range = finder.matchRange.toDomRange();
-					if ( range )
-						editor.getSelection().selectRanges( [ range ] );
+					editor.getSelection().selectRanges(
+						[ finder.matchRange.toDomRange() ] );
 				}
 
 				// Clear current session before dialog close

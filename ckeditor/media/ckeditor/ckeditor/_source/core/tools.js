@@ -12,11 +12,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	var functions = [];
 
-	CKEDITOR.on( 'reset', function()
-		{
-			functions = [];
-		});
-
 	/**
 	 * Utility functions.
 	 * @namespace
@@ -260,7 +255,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		} )(),
 
 		/**
-		 * Build the HTML snippet of a set of &lt;style>/&lt;link>.
+		 * Build the HTML snippet of a set of <style>/<link>.
 		 * @param css {String|Array} Each of which are url (absolute) of a CSS file or
 		 * a trunk of style text.
 		 */
@@ -325,19 +320,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			this.htmlEncode = fix3;
 
 			return this.htmlEncode( text );
-		},
-
-		/**
-		 * Replace special HTML characters in HTMLElement's attribute with their relative HTML entity values.
-		 * @param {String} The attribute's value to be encoded.
-		 * @returns {String} The encode value.
-		 * @example
-		 * element.setAttribute( 'title', '<a " b >' );
-		 * alert( CKEDITOR.tools.htmlEncodeAttr( element.getAttribute( 'title' ) );  // "&gt;a &quot; b &lt;"
-		 */
-		htmlEncodeAttr : function( text )
-		{
-			return text.replace( /"/g, '&quot;' ).replace( /</g, '&lt;' ).replace( />/, '&gt;' );
 		},
 
 		/**
@@ -558,7 +540,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		 * <li> Public (prototype) fields </li>
 		 * <li> Chainable base class constructor </li>
 		 * </ul>
-		 * @param {Object} definition The class definition object.
+		 * @param {Object} definiton The class definiton object.
 		 * @returns {Function} A class-like JavaScript function.
 		 */
 		createClass : function( definition )
@@ -696,18 +678,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				catch (e) {}
 			}
 			return returnValue;
-		},
-
-		/**
-		 * Generate a combined key from a series of params.
-		 * @param {String} subKey One or more string used as sub keys.
-		 * @example
-		 * var key = CKEDITOR.tools.genKey( 'key1', 'key2', 'key3' );
-		 * alert( key );		// "key1-key2-key3".
-		 */
-		genKey : function()
-		{
-			return Array.prototype.slice.call( arguments ).join( '-' );
 		}
 	};
 })();

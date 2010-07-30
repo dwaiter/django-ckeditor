@@ -31,11 +31,11 @@ CKEDITOR.lang['fi'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rikastekstieditori, %1, paina ALT 0 nähdäksesi ohjeen.',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
 
 	// ARIA descriptions.
-	toolbar	: 'Työkalupalkki',
-	editor	: 'Rikastekstieditori',
+	toolbar	: 'Toolbar', // MISSING
+	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'Koodi',
@@ -92,42 +92,35 @@ CKEDITOR.lang['fi'] =
 		cssStyle		: 'Tyyli',
 		ok				: 'OK',
 		cancel			: 'Peruuta',
-		close			: 'Sulje',
-		preview			: 'Esikatselu',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'Yleinen',
 		advancedTab		: 'Lisäominaisuudet',
 		validateNumberFailed : 'Arvon pitää olla numero.',
 		confirmNewPage	: 'Kaikki tallentamattomat muutokset tähän sisältöön menetetään. Oletko varma, että haluat ladata uuden sivun?',
 		confirmCancel	: 'Jotkut asetuksista on muuttuneet. Oletko varma, että haluat sulkea valintaikkunan?',
-		options			: 'Asetukset',
-		target			: 'Kohde',
-		targetNew		: 'Uusi ikkuna (_blank)',
-		targetTop		: 'Päällimmäinen ikkuna (_top)',
-		targetSelf		: 'Sama ikkuna (_self)',
-		targetParent	: 'Ylemmän tason ikkuna (_parent)',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, ei saatavissa</span>'
-	},
-
-	contextmenu :
-	{
-		options : 'Context Menu Options' // MISSING
 	},
 
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: 'Lisää erikoismerkki',
-		title		: 'Valitse erikoismerkki',
-		options : 'Special Character Options' // MISSING
+		title		: 'Valitse erikoismerkki'
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Lisää linkki/muokkaa linkkiä',
-		other 		: '<muu>',
 		menu		: 'Muokkaa linkkiä',
 		title		: 'Linkki',
 		info		: 'Linkin tiedot',
@@ -135,7 +128,7 @@ CKEDITOR.lang['fi'] =
 		upload		: 'Lisää tiedosto',
 		advanced	: 'Lisäominaisuudet',
 		type		: 'Linkkityyppi',
-		toUrl		: 'Osoite',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Ankkuri tässä sivussa',
 		toEmail		: 'Sähköposti',
 		targetFrame		: '<kehys>',
@@ -189,29 +182,6 @@ CKEDITOR.lang['fi'] =
 		errorName	: 'Ankkurille on kirjoitettava nimi'
 	},
 
-	// List style dialog
-	list:
-	{
-		numberedTitle		: 'Numeroidun listan ominaisuudet',
-		bulletedTitle		: 'Numeroimattoman listan ominaisuudet',
-		type				: 'Tyyppi',
-		start				: 'Alku',
-		circle				: 'Ympyrä',
-		disc				: 'Levy',
-		square				: 'Neliö',
-		none				: 'Ei mikään',
-		notset				: '<ei asetettu>',
-		armenian			: 'Armeenialainen numerointi',
-		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
-		lowerRoman			: 'Pienet roomalaiset (i, ii, iii, iv, v, jne.)',
-		upperRoman			: 'Isot roomalaiset (I, II, III, IV, V, jne.)',
-		lowerAlpha			: 'Pienet aakkoset (a, b, c, d, e, jne.)',
-		upperAlpha			: 'Isot aakkoset (A, B, C, D, E, jne.)',
-		lowerGreek			: 'Pienet kreikkalaiset (alpha, beta, gamma, jne.)',
-		decimal				: 'Desimaalit (1, 2, 3, jne.)',
-		decimalLeadingZero	: 'Desimaalit, alussa nolla (01, 02, 03, jne.)'
-	},
-
 	// Find And Replace Dialog
 	findAndReplace :
 	{
@@ -245,7 +215,7 @@ CKEDITOR.lang['fi'] =
 		width		: 'Leveys',
 		widthPx		: 'pikseliä',
 		widthPc		: 'prosenttia',
-		widthUnit	: 'leveysyksikkö',
+		widthUnit	: 'width unit', // MISSING
 		height		: 'Korkeus',
 		cellSpace	: 'Solujen väli',
 		cellPad		: 'Solujen sisennys',
@@ -408,9 +378,9 @@ CKEDITOR.lang['fi'] =
 		width		: 'Leveys',
 		height		: 'Korkeus',
 		lockRatio	: 'Lukitse suhteet',
-		unlockRatio	: 'Vapauta suhteet',
+		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Alkuperäinen koko',
-		border		: 'Kehys',
+		border		: 'Raja',
 		hSpace		: 'Vaakatila',
 		vSpace		: 'Pystytila',
 		align		: 'Kohdistus',
@@ -421,17 +391,17 @@ CKEDITOR.lang['fi'] =
 		button2Img	: 'Haluatko muuntaa valitun kuvanäppäimen kuvaksi?',
 		img2Button	: 'Haluatko muuntaa valitun kuvan kuvanäppäimeksi?',
 		urlMissing	: 'Kuvan lähdeosoite puuttuu.',
-		validateWidth	: 'Leveyden täytyy olla kokonaisluku.',
-		validateHeight	: 'Korkeuden täytyy olla kokonaisluku.',
-		validateBorder	: 'Kehyksen täytyy olla kokonaisluku.',
-		validateHSpace	: 'HSpace-määrityksen täytyy olla kokonaisluku.',
-		validateVSpace	: 'VSpace-määrityksen täytyy olla kokonaisluku.'
+		validateWidth	: 'Width must be a whole number.', // MISSING
+		validateHeight	: 'Height must be a whole number.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
 	flash :
 	{
-		properties		: 'Flash-ominaisuudet',
+		properties		: 'Flash ominaisuudet',
 		propertiesTab	: 'Ominaisuudet',
 		title			: 'Flash ominaisuudet',
 		chkPlay			: 'Automaattinen käynnistys',
@@ -506,13 +476,12 @@ CKEDITOR.lang['fi'] =
 	smiley :
 	{
 		toolbar	: 'Hymiö',
-		title	: 'Lisää hymiö',
-		options : 'Smiley Options' // MISSING
+		title	: 'Lisää hymiö'
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elementin polku',
+		eleLabel : 'Elements path', // MISSING
 		eleTitle : '%1 elementti'
 	},
 
@@ -538,7 +507,7 @@ CKEDITOR.lang['fi'] =
 		copyError	: 'Selaimesi turva-asetukset eivät salli editorin toteuttaa kopioimista. Käytä näppäimistöä kopioimiseen (Ctrl+C).',
 		pasteMsg	: 'Liitä painamalla (<STRONG>Ctrl+V</STRONG>) ja painamalla <STRONG>OK</STRONG>.',
 		securityMsg	: 'Selaimesi turva-asetukset eivät salli editorin käyttää leikepöytää suoraan. Sinun pitää suorittaa liittäminen tässä ikkunassa.',
-		pasteArea	: 'Leikealue'
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
@@ -559,7 +528,6 @@ CKEDITOR.lang['fi'] =
 	{
 		button			: 'Pohjat',
 		title			: 'Sisältöpohjat',
-		options : 'Template Options', // MISSING
 		insertOption	: 'Korvaa editorin koko sisältö',
 		selectPromptMsg	: 'Valitse pohja editoriin<br>(aiempi sisältö menetetään):',
 		emptyListMsg	: '(Ei määriteltyjä pohjia)'
@@ -570,7 +538,7 @@ CKEDITOR.lang['fi'] =
 	stylesCombo :
 	{
 		label		: 'Tyyli',
-		panelTitle	: 'Muotoilujen tyylit',
+		panelTitle	: 'Formatting Styles', // MISSING
 		panelTitle1	: 'Lohkojen tyylit',
 		panelTitle2	: 'Rivinsisäiset tyylit',
 		panelTitle3	: 'Objektien tyylit'
@@ -628,7 +596,7 @@ CKEDITOR.lang['fi'] =
 	{
 		textColorTitle	: 'Tekstiväri',
 		bgColorTitle	: 'Taustaväri',
-		panelTitle		: 'Värit',
+		panelTitle		: 'Colors', // MISSING
 		auto			: 'Automaattinen',
 		more			: 'Lisää värejä...'
 	},
@@ -680,7 +648,6 @@ CKEDITOR.lang['fi'] =
 	scayt :
 	{
 		title			: 'Oikolue kirjoitettaessa',
-		opera_title		: 'Opera ei tue tätä ominaisuutta',
 		enable			: 'Ota käyttöön oikoluku kirjoitettaessa',
 		disable			: 'Poista käytöstä oikoluku kirjoitetaessa',
 		about			: 'Tietoja oikoluvusta kirjoitetaessa',
@@ -692,23 +659,9 @@ CKEDITOR.lang['fi'] =
 		ignoreAll		: 'Ohita kaikki',
 		addWord			: 'Lisää sana',
 		emptyDic		: 'Sanakirjan nimi on annettava.',
-
 		optionsTab		: 'Asetukset',
-		allCaps			: 'Ohita sanat, jotka on kirjoitettu kokonaan isoilla kirjaimilla',
-		ignoreDomainNames : 'Ohita verkkotunnukset',
-		mixedCase		: 'Ohita sanat, joissa on sekoitettu isoja ja pieniä kirjaimia',
-		mixedWithDigits	: 'Ohita sanat, joissa on numeroita',
-
 		languagesTab	: 'Kielet',
-
 		dictionariesTab	: 'Sanakirjat',
-		dic_field_name	: 'Sanakirjan nimi',
-		dic_create		: 'Luo',
-		dic_restore		: 'Palauta',
-		dic_delete		: 'Poista',
-		dic_rename		: 'Nimeä uudelleen',
-		dic_info		: 'Oletuksena sanakirjat tallennetaan evästeeseen, mutta evästeiden koko on kuitenkin rajallinen. Sanakirjan kasvaessa niin suureksi, ettei se enää mahdu evästeeseen, sanakirja täytyy tallentaa palvelimellemme. Tallentaaksesi sanakirjasi palvelimellemme tulee sinun antaa sille nimi. Jos olet jo tallentanut sanakirjan, anna sen nimi ja klikkaa Palauta-painiketta',
-
 		aboutTab		: 'Tietoa'
 	},
 
@@ -736,7 +689,6 @@ CKEDITOR.lang['fi'] =
 	colordialog :
 	{
 		title		: 'Valitse väri',
-		options	:	'Color Options', // MISSING
 		highlight	: 'Korostus',
 		selected	: 'Valittu',
 		clear		: 'Poista'

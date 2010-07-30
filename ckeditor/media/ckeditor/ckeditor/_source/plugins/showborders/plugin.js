@@ -129,33 +129,36 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 				} );
 			}
-		}
-	});
 
-	// Table dialog must be aware of it.
-	CKEDITOR.on( 'dialogDefinition', function( ev )
-	{
-		var dialogName = ev.data.name;
+			// Table dialog must be aware of it.
+			CKEDITOR.on( 'dialogDefinition', function( ev )
+				{
+					if ( ev.editor != editor )
+						return;
 
-		if ( dialogName == 'table' || dialogName == 'tableProperties' )
-		{
-			var dialogDefinition = ev.data.definition,
-				infoTab = dialogDefinition.getContents( 'info' ),
-				borderField = infoTab.get( 'txtBorder' ),
-				originalCommit = borderField.commit;
+					var dialogName = ev.data.name;
 
-			borderField.commit = CKEDITOR.tools.override( originalCommit, function( org )
-			{
-				return function( data, selectedTable )
+					if ( dialogName == 'table' || dialogName == 'tableProperties' )
 					{
-						org.apply( this, arguments );
-						var value = parseInt( this.getValue(), 10 );
-						selectedTable[ ( !value || value <= 0 ) ? 'addClass' : 'removeClass' ]( showBorderClassName );
-					};
-			} );
-		}
-	});
+						var dialogDefinition = ev.data.definition,
+							infoTab = dialogDefinition.getContents( 'info' ),
+							borderField = infoTab.get( 'txtBorder' ),
+							originalCommit = borderField.commit;
 
+						borderField.commit = CKEDITOR.tools.override( originalCommit, function( org )
+						{
+							return function( data, selectedTable )
+								{
+									org.apply( this, arguments );
+									var value = parseInt( this.getValue(), 10 );
+									selectedTable[ ( !value || value <= 0 ) ? 'addClass' : 'removeClass' ]( showBorderClassName );
+								};
+						} );
+					}
+				});
+		}
+
+	});
 } )();
 
 /**
