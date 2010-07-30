@@ -21,7 +21,6 @@ CKEDITOR.plugins.add( 'format',
 		{
 			var tag = tags[ i ];
 			styles[ tag ] = new CKEDITOR.style( config[ 'format_' + tag ] );
-			styles[ tag ]._.enterMode = editor.config.enterMode;
 		}
 
 		editor.ui.addRichCombo( 'Format',

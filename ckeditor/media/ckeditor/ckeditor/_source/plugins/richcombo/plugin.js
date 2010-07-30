@@ -130,7 +130,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 					var element = CKEDITOR.document.getById( id ).getChild( 1 );
 					element.focus();
 				},
-				clickFn : clickFn
+				execute : clickFn
 			};
 
 			editor.on( 'mode', function()
@@ -160,9 +160,6 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 					// Avoid subsequent focus grab on editor document.
 					ev.preventDefault();
 				});
-
-			// For clean up
-			instance.keyDownFn = keyDownFn;
 
 			output.push(
 				'<span class="cke_rcombo">',

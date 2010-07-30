@@ -11,7 +11,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		var doCallback = function()
 			{
-				img.removeAllListeners();
 				loaded[ image ] = 1;
 				callback();
 			};

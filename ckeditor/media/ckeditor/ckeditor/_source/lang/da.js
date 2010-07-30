@@ -110,24 +110,17 @@ CKEDITOR.lang['da'] =
 		unavailable		: '%1<span class="cke_accessibility">, ikke tilgængelig</span>'
 	},
 
-	contextmenu :
-	{
-		options : 'Context Menu Options' // MISSING
-	},
-
 	// Special char dialog.
 	specialChar		:
 	{
 		toolbar		: 'Indsæt symbol',
-		title		: 'Vælg symbol',
-		options : 'Special Character Options' // MISSING
+		title		: 'Vælg symbol'
 	},
 
 	// Link dialog.
 	link :
 	{
 		toolbar		: 'Indsæt/redigér hyperlink',
-		other 		: '<anden>',
 		menu		: 'Redigér hyperlink',
 		title		: 'Egenskaber for hyperlink',
 		info		: 'Generelt',
@@ -187,29 +180,6 @@ CKEDITOR.lang['da'] =
 		title		: 'Egenskaber for bogmærke',
 		name		: 'Bogmærke navn',
 		errorName	: 'Indtast bogmærke navn'
-	},
-
-	// List style dialog
-	list:
-	{
-		numberedTitle		: 'Numbered List Properties', // MISSING
-		bulletedTitle		: 'Bulleted List Properties', // MISSING
-		type				: 'Type', // MISSING
-		start				: 'Start', // MISSING
-		circle				: 'Circle', // MISSING
-		disc				: 'Disc', // MISSING
-		square				: 'Square', // MISSING
-		none				: 'None', // MISSING
-		notset				: '<not set>', // MISSING
-		armenian			: 'Armenian numbering', // MISSING
-		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
-		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
-		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
-		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
-		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
-		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
-		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
-		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
 
 	// Find And Replace Dialog
@@ -506,8 +476,7 @@ CKEDITOR.lang['da'] =
 	smiley :
 	{
 		toolbar	: 'Smiley',
-		title	: 'Vælg smiley',
-		options : 'Smiley Options' // MISSING
+		title	: 'Vælg smiley'
 	},
 
 	elementsPath :
@@ -534,9 +503,9 @@ CKEDITOR.lang['da'] =
 	clipboard :
 	{
 		title		: 'Indsæt',
-		cutError	: 'Din browsers sikkerhedsindstillinger tillader ikke editoren at få automatisk adgang til udklipsholderen.<br><br>Brug i stedet tastaturet til at klippe teksten (Ctrl/Cmd+X).',
-		copyError	: 'Din browsers sikkerhedsindstillinger tillader ikke editoren at få automatisk adgang til udklipsholderen.<br><br>Brug i stedet tastaturet til at kopiere teksten (Ctrl/Cmd+C).',
-		pasteMsg	: 'Indsæt i feltet herunder (<STRONG>Ctrl/Cmd+V</STRONG>) og klik på <STRONG>OK</STRONG>.',
+		cutError	: 'Din browsers sikkerhedsindstillinger tillader ikke editoren at få automatisk adgang til udklipsholderen.<br><br>Brug i stedet tastaturet til at klippe teksten (Ctrl+X).',
+		copyError	: 'Din browsers sikkerhedsindstillinger tillader ikke editoren at få automatisk adgang til udklipsholderen.<br><br>Brug i stedet tastaturet til at kopiere teksten (Ctrl+C).',
+		pasteMsg	: 'Indsæt i feltet herunder (<STRONG>Ctrl+V</STRONG>) og klik på <STRONG>OK</STRONG>.',
 		securityMsg	: 'Din browsers sikkerhedsindstillinger tillader ikke editoren at få automatisk adgang til udklipsholderen.<br><br>Du skal indsætte udklipsholderens indhold i dette vindue igen.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
@@ -559,7 +528,6 @@ CKEDITOR.lang['da'] =
 	{
 		button			: 'Skabeloner',
 		title			: 'Indholdsskabeloner',
-		options : 'Template Options', // MISSING
 		insertOption	: 'Erstat det faktiske indhold',
 		selectPromptMsg	: 'Vælg den skabelon, som skal åbnes i editoren (nuværende indhold vil blive overskrevet):',
 		emptyListMsg	: '(Der er ikke defineret nogen skabelon)'
@@ -680,7 +648,6 @@ CKEDITOR.lang['da'] =
 	scayt :
 	{
 		title			: 'Stavekontrol mens du skriver',
-		opera_title		: 'Not supported by Opera', // MISSING
 		enable			: 'Aktivér SCAYT',
 		disable			: 'Deaktivér SCAYT',
 		about			: 'Om SCAYT',
@@ -692,23 +659,9 @@ CKEDITOR.lang['da'] =
 		ignoreAll		: 'Ignorér alle',
 		addWord			: 'Tilføj ord',
 		emptyDic		: 'Ordbogsnavn må ikke være tom.',
-
 		optionsTab		: 'Indstillinger',
-		allCaps			: 'Ignore All-Caps Words', // MISSING
-		ignoreDomainNames : 'Ignore Domain Names', // MISSING
-		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
-		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
-
 		languagesTab	: 'Sprog',
-
 		dictionariesTab	: 'Ordbøger',
-		dic_field_name	: 'Dictionary name', // MISSING
-		dic_create		: 'Create', // MISSING
-		dic_restore		: 'Restore', // MISSING
-		dic_delete		: 'Delete', // MISSING
-		dic_rename		: 'Rename', // MISSING
-		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type it\'s name and click the Restore button.', // MISSING
-
 		aboutTab		: 'Om'
 	},
 
@@ -736,9 +689,8 @@ CKEDITOR.lang['da'] =
 	colordialog :
 	{
 		title		: 'Select color', // MISSING
-		options	:	'Color Options', // MISSING
 		highlight	: 'Highlight', // MISSING
-		selected	: 'Selected Color', // MISSING
+		selected	: 'Selected', // MISSING
 		clear		: 'Clear' // MISSING
 	},
 

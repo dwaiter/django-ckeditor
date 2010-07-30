@@ -11,9 +11,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	var listNodeNames = { ol : 1, ul : 1 };
 
-	var isNotWhitespaces = CKEDITOR.dom.walker.whitespaces( true ),
-		isNotBookmark = CKEDITOR.dom.walker.bookmark( false, true );
-
 	function setState( editor, state )
 	{
 		editor.getCommand( this.name ).setState( state );
@@ -21,13 +18,38 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 	function onSelectionChange( evt )
 	{
-		var editor = evt.editor;
+		var elements = evt.data.path.elements,
+			listNode, listItem,
+			editor = evt.editor;
 
-		var elementPath = evt.data.path,
-				list = elementPath && elementPath.contains( listNodeNames );
+		for ( var i = 0 ; i < elements.length ; i++ )
+		{
+			if ( elements[i].getName() == 'li' )
+			{
+				listItem = elements[i];
+				continue;
+			}
+			if ( listNodeNames[ elements[i].getName() ] )
+			{
+				listNode = elements[i];
+				break;
+			}
+		}
 
-		if ( list )
+		if ( listNode )
+		{
+			if ( this.name == 'outdent' )
 				return setState.call( this, editor, CKEDITOR.TRISTATE_OFF );
+			else
+			{
+				while ( listItem && ( listItem = listItem.getPrevious( CKEDITOR.dom.walker.whitespaces( true ) ) ) )
+				{
+					if ( listItem.getName && listItem.getName() == 'li' )
+						return setState.call( this, editor, CKEDITOR.TRISTATE_OFF );
+				}
+				return setState.call( this, editor, CKEDITOR.TRISTATE_DISABLED );
+			}
+		}
 
 		if ( !this.useIndentClasses && this.name == 'indent' )
 			return setState.call( this, editor, CKEDITOR.TRISTATE_OFF );
@@ -113,14 +135,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		// Apply indenting or outdenting on the array.
 		var baseIndent = listArray[ lastItem.getCustomData( 'listarray_index' ) ].indent;
-		for ( i = startItem.getCustomData( 'listarray_index' ); i <= lastItem.getCustomData( 'listarray_index' ); i++ )
-		{
-			listArray[ i ].indent += indentOffset;
-			// Make sure the newly created sublist get a brand-new element of the same type. (#5372)
-			var listRoot = listArray[ i ].parent;
-			listArray[ i ].parent = new CKEDITOR.dom.element( listRoot.getName(), listRoot.getDocument() );
-		}
-
+		for ( i = startItem.getCustomData( 'listarray_index' ) ; i <= lastItem.getCustomData( 'listarray_index' ) ; i++ )
+			listArray[i].indent += indentOffset;
 		for ( i = lastItem.getCustomData( 'listarray_index' ) + 1 ;
 				i < listArray.length && listArray[i].indent > baseIndent ; i++ )
 			listArray[i].indent += indentOffset;
@@ -165,11 +181,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					   followingList.is &&
 					   followingList.getName() in listNodeNames )
 				{
-					// IE requires a filler NBSP for nested list inside empty list item,
-					// otherwise the list item will be inaccessiable. (#4476)
-					if ( CKEDITOR.env.ie && !li.getFirst( function( node ){ return isNotWhitespaces( node ) && isNotBookmark( node ); } ) )
-						li.append( range.document.createText( '\u00a0' ) );
-
 					li.append( followingList );
 				}
 
@@ -189,15 +200,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 		var block;
 		while ( ( block = iterator.getNextParagraph() ) )
-			indentElement.call( this, editor, block );
-	}
-
-	function indentElement( editor, element )
 		{
+
 			if ( this.useIndentClasses )
 			{
 				// Transform current class name to indent step index.
-			var indentClass = element.$.className.match( this.classNameRegex ),
+				var indentClass = block.$.className.match( this.classNameRegex ),
 					indentStep = 0;
 				if ( indentClass )
 				{
@@ -211,37 +219,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					indentStep--;
 				else
 					indentStep++;
-
-			if ( indentStep < 0 )
-				return false;
-
 				indentStep = Math.min( indentStep, editor.config.indentClasses.length );
 				indentStep = Math.max( indentStep, 0 );
-			var className = CKEDITOR.tools.ltrim( element.$.className.replace( this.classNameRegex, '' ) );
+				var className = CKEDITOR.tools.ltrim( block.$.className.replace( this.classNameRegex, '' ) );
 				if ( indentStep < 1 )
-				element.$.className = className;
+					block.$.className = className;
 				else
-				element.addClass( editor.config.indentClasses[ indentStep - 1 ] );
+					block.addClass( editor.config.indentClasses[ indentStep - 1 ] );
 			}
 			else
 			{
-			var currentOffset = parseInt( element.getStyle( this.indentCssProperty ), 10 );
+				var currentOffset = parseInt( block.getStyle( this.indentCssProperty ), 10 );
 				if ( isNaN( currentOffset ) )
 					currentOffset = 0;
 				currentOffset += ( this.name == 'indent' ? 1 : -1 ) * editor.config.indentOffset;
-
-			if ( currentOffset < 0 )
-				return false;
-
 				currentOffset = Math.max( currentOffset, 0 );
 				currentOffset = Math.ceil( currentOffset / editor.config.indentOffset ) * editor.config.indentOffset;
-			element.setStyle( this.indentCssProperty, currentOffset ? currentOffset + editor.config.indentUnit : '' );
-			if ( element.getAttribute( 'style' ) === '' )
-				element.removeAttribute( 'style' );
+				block.setStyle( this.indentCssProperty, currentOffset ? currentOffset + editor.config.indentUnit : '' );
+				if ( block.getAttribute( 'style' ) === '' )
+					block.removeAttribute( 'style' );
 			}
-
-		return true;
 		}
+	}
 
 	function indentCommand( editor, name )
 	{
@@ -256,12 +255,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 		else
 			this.indentCssProperty = editor.config.contentsLangDirection == 'ltr' ? 'margin-left' : 'margin-right';
-		this.startDisabled = name == 'outdent';
-	}
-
-	function isListItem( node )
-	{
-		return node.type = CKEDITOR.NODE_ELEMENT && node.is( 'li' );
 	}
 
 	indentCommand.prototype = {
@@ -270,48 +263,18 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			var selection = editor.getSelection(),
 				range = selection && selection.getRanges()[0];
 
-			var startContainer = range.startContainer,
-				endContainer = range.endContainer,
-				rangeRoot = range.getCommonAncestor(),
-				nearestListBlock = rangeRoot;
+			if ( !selection || !range )
+				return;
+
+			var bookmarks = selection.createBookmarks( true ),
+				nearestListBlock = range.getCommonAncestor();
 
 			while ( nearestListBlock && !( nearestListBlock.type == CKEDITOR.NODE_ELEMENT &&
 				listNodeNames[ nearestListBlock.getName() ] ) )
 				nearestListBlock = nearestListBlock.getParent();
 
-			// Avoid selection anchors under list root.
-			// <ul>[<li>...</li>]</ul> =>	<ul><li>[...]</li></ul>
-			if ( nearestListBlock && startContainer.type == CKEDITOR.NODE_ELEMENT
-				&& startContainer.getName() in listNodeNames )
-			{
-				var walker = new CKEDITOR.dom.walker( range );
-				walker.evaluator = isListItem;
-				range.startContainer = walker.next();
-			}
-
-			if ( nearestListBlock && endContainer.type == CKEDITOR.NODE_ELEMENT
-				&& endContainer.getName() in listNodeNames )
-			{
-				walker = new CKEDITOR.dom.walker( range );
-				walker.evaluator = isListItem;
-				range.endContainer = walker.previous();
-			}
-
-			var bookmarks = selection.createBookmarks( true );
-
-			if ( nearestListBlock  )
-			{
-				var firstListItem = nearestListBlock.getFirst( function( node )
-					{
-						return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'li' );
-					}),
-					rangeStart = range.startContainer,
-					indentWholeList = firstListItem.equals( rangeStart ) || firstListItem.contains( rangeStart );
-
-				// Indent the entire list if  cursor is inside the first list item. (#3893)
-				if ( !( indentWholeList && indentElement.call( this, editor, nearestListBlock ) ) )
+			if ( nearestListBlock )
 				indentList.call( this, editor, range, nearestListBlock );
-			}
 			else
 				indentBlock.call( this, editor, range );
 
@@ -346,17 +309,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Register the state changing handlers.
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, indent ) );
 			editor.on( 'selectionChange', CKEDITOR.tools.bind( onSelectionChange, outdent ) );
-
-			// [IE6/7] Raw lists are using margin instead of padding for visual indentation in wysiwyg mode. (#3893)
-			if ( CKEDITOR.env.ie6Compat || CKEDITOR.env.ie7Compat )
-			{
-				editor.addCss(
-					"ul,ol" +
-					"{" +
-					"	margin-left: 0px;" +
-					"	padding-left: 40px;" +
-					"}" );
-			}
 		},
 
 		requires : [ 'domiterator', 'list' ]
@@ -369,31 +321,6 @@ CKEDITOR.tools.extend( CKEDITOR.config,
 		indentUnit : 'px',
 		indentClasses : null
 	});
-
-/**
- * Size of each indentation step
- * @type Number
- * @example
- * config.indentOffset = 40;
- */
-
- /**
- * Unit for the indentation style
- * @type String
- * @example
- * config.indentUnit = 'px';
- */
-
- /**
- * List of classes to use for indenting the contents.
- * @type Array
- * @example
- * // Don't use classes for indenting. (this is the default value)
- * config.indentClasses = null;
- * @example
- * // Use the classes 'Indent1', 'Indent2', 'Indent3'
- * config.indentClasses = ['Indent1', 'Indent2', 'Indent3'];
- */
 
 /**
  * Size of each indentation step

@@ -41,12 +41,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	function blockNeedsExtension( block )
 	{
 		var lastChild = lastNoneSpaceChild( block );
-
-		return !lastChild
-			|| lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br'
-			// Some of the controls in form needs extension too,
-			// to move cursor at the end of the form. (#4791)
-			|| block.name == 'form' && lastChild.name == 'input';
+		return !lastChild || lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br';
 	}
 
 	function extendBlockForDisplay( block )
@@ -84,7 +79,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	delete blockLikeTags.pre;
 	var defaultDataFilterRules =
 	{
-		elements : {},
 		attributeNames :
 		[
 			// Event attributes (onXYZ) must not be directly set. They can become
@@ -239,21 +233,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		{
 			return value.toLowerCase();
 		};
-	}
-
-	function protectReadOnly( element )
-	{
-		element.attributes.contenteditable = "false";
-	}
-	function unprotectReadyOnly( element )
-	{
-		delete element.attributes.contenteditable;
-	}
-	// Disable form elements editing mode provided by some browers. (#5746)
-	for ( i in { input : 1, textarea : 1 } )
-	{
-		defaultDataFilterRules.elements[ i ] = protectReadOnly;
-		defaultHtmlFilterRules.elements[ i ] = unprotectReadyOnly;
 	}
 
 	var protectAttributeRegex = /<(?:a|area|img|input)[\s\S]*?\s((?:href|src|name)\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|(?:[^ "'>]+)))/gi;

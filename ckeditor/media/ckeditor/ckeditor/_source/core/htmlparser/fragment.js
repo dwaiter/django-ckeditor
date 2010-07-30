@@ -274,7 +274,6 @@ CKEDITOR.htmlParser.fragment = function()
 			}
 
 			checkPending( tagName );
-			sendPendingBRs();
 
 			element.parent = currentNode;
 			element.returnPoint = returnPoint;

@@ -15,8 +15,6 @@ CKEDITOR.plugins.add( 'removeformat',
 				label : editor.lang.removeFormat,
 				command : 'removeFormat'
 			});
-
-		editor._.removeFormat = { filters: [] };
 	}
 });
 
@@ -34,7 +32,6 @@ CKEDITOR.plugins.removeformat =
 				var removeAttributes = editor._.removeAttributes ||
 					( editor._.removeAttributes = editor.config.removeFormatAttributes.split( ',' ) );
 
-				var filter = CKEDITOR.plugins.removeformat.filter;
 				var ranges = editor.getSelection().getRanges();
 
 				for ( var i = 0, range ; range = ranges[ i ] ; i++ )
@@ -73,7 +70,7 @@ CKEDITOR.plugins.removeformat =
 								break;
 
 							// If this element can be removed (even partially).
-							if ( tagsRegex.test( pathElement.getName() ) && filter( editor, pathElement ) )
+							if ( tagsRegex.test( pathElement.getName() ) )
 								node.breakParent( pathElement );
 						}
 					};
@@ -95,9 +92,7 @@ CKEDITOR.plugins.removeformat =
 						var nextNode = currentNode.getNextSourceNode( false, CKEDITOR.NODE_ELEMENT );
 
 						// This node must not be a fake element.
-						if ( !( currentNode.getName() == 'img'
-							&& currentNode.getAttribute( '_cke_realelement' ) )
-							&& filter( editor, currentNode ) )
+						if ( !( currentNode.getName() == 'img' && currentNode.getAttribute( '_cke_realelement' ) ) )
 						{
 							// Remove elements nodes that match with this style rules.
 							if ( tagsRegex.test( currentNode.getName() ) )
@@ -115,42 +110,7 @@ CKEDITOR.plugins.removeformat =
 				editor.getSelection().selectRanges( ranges );
 			}
 		}
-	},
-
-	/**
-	 * Perform the remove format filters on the passed element.
-	 * @param {CKEDITOR.editor} editor
-	 * @param {CKEDITOR.dom.element} element
-	 */
-	filter : function ( editor, element )
-	{
-		var filters = editor._.removeFormat.filters;
-		for ( var i = 0; i < filters.length; i++ )
-		{
-			if ( filters[ i ]( element ) === false )
-				return false;
-		}
-		return true;
 	}
-};
-
-/**
- * Add to a collection of functions to decide whether a specific
- * element should be considered as formatting element and thus
- * could be removed during <b>removeFormat</b> command,
- * Note: Only available with the existence of 'removeformat' plugin.
- * @since 3.3
- * @param {Function} func The function to be called, which will be passed a {CKEDITOR.dom.element} element to test.
- * @example
- *  // Don't remove empty span
- *  editor.addRemoveFormatFilter.push( function( element )
- *		{
- *			return !( element.is( 'span' ) && CKEDITOR.tools.isEmpty( element.getAttributes() ) );
- *		});
- */
-CKEDITOR.editor.prototype.addRemoveFormatFilter = function( func )
-{
-	this._.removeFormat.filters.push( func );
 };
 
 /**

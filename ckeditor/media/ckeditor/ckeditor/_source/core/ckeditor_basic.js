@@ -79,7 +79,7 @@ if ( CKEDITOR.status == 'unloaded' )
 		 */
 		CKEDITOR.replaceByClassEnabled = true;
 
-		var createInstance = function( elementOrIdOrName, config, creationFunction, data )
+		var createInstance = function( elementOrIdOrName, config, creationFunction )
 		{
 			if ( CKEDITOR.env.isCompatible )
 			{
@@ -87,7 +87,7 @@ if ( CKEDITOR.status == 'unloaded' )
 				if ( CKEDITOR.loadFullCore )
 					CKEDITOR.loadFullCore();
 
-				var editor = creationFunction( elementOrIdOrName, config, data );
+				var editor = creationFunction( elementOrIdOrName, config );
 				CKEDITOR.add( editor );
 				return editor;
 			}
@@ -125,16 +125,15 @@ if ( CKEDITOR.status == 'unloaded' )
 		 * @param {Object} [config] The specific configurations to apply to this
 		 *		editor instance. Configurations set here will override global CKEditor
 		 *		settings.
-		 * @param {String} [data] Since 3.3. Initial value for the instance.
 		 * @returns {CKEDITOR.editor} The editor instance created.
 		 * @example
 		 * &lt;div id="editorSpace"&gt;&lt:/div&gt;
 		 * ...
 		 * <b>CKEDITOR.appendTo( 'editorSpace' )</b>;
 		 */
-		CKEDITOR.appendTo = function( elementOrId, config, data )
+		CKEDITOR.appendTo = function( elementOrId, config )
 		{
-			return createInstance( elementOrId, config, CKEDITOR.editor.appendTo, data );
+			return createInstance( elementOrId, config, CKEDITOR.editor.appendTo );
 		};
 
 		/**
@@ -187,7 +186,7 @@ if ( CKEDITOR.status == 'unloaded' )
 					// The textarea class name could be passed as the function
 					// parameter.
 
-					var classRegex = new RegExp( '(?:^|\\s)' + arguments[0] + '(?:$|\\s)' );
+					var classRegex = new RegExp( '(?:^| )' + arguments[0] + '(?:$| )' );
 
 					if ( !classRegex.test( textarea.className ) )
 						continue;

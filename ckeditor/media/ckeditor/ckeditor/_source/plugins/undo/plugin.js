@@ -114,41 +114,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				// Create the first image.
 				editor.fire( 'saveSnapshot' );
 			};
-
-			/**
-			 * Update the undo stacks with any subsequent DOM changes after this call.
-			 * @name CKEDITOR.editor#updateUndo
-			 * @example
-			 * function()
-			 * {
-			 * editor.fire( 'updateSnapshot' );
-			 * ...
-			 *  // Ask to include subsequent (in this call stack) DOM changes to be
-			 * // considered as part of the first snapshot.
-			 * 	editor.fire( 'updateSnapshot' );
-			 * 	editor.document.body.append(...);
-			 * ...
-			 * }
-			 */
-			editor.on( 'updateSnapshot', function()
-			{
-				if ( undoManager.currentImage && new Image( editor ).equals( undoManager.currentImage ) )
-					setTimeout( function () { undoManager.update(); }, 0 );
-			});
 		}
 	});
 
-	CKEDITOR.plugins.undo = {};
-
-	/**
-	 * Undo snapshot which represents the current document status.
-	 * @name CKEDITOR.plugins.undo.Image
-	 * @param editor The editor instance on which the image is created.
-	 */
-	var Image = CKEDITOR.plugins.undo.Image = function( editor )
+	// Gets a snapshot image which represent the current document status.
+	function Image( editor )
 	{
-		this.editor = editor;
-		var contents = editor.getSnapshot(),
+		var contents	= editor.getSnapshot(),
 			selection	= contents && editor.getSelection();
 
 		// In IE, we need to remove the expando attributes.
@@ -156,7 +128,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		this.contents	= contents;
 		this.bookmarks	= selection && selection.createBookmarks2( true );
-	};
+	}
 
 	// Attributes that browser may changing them when setting via innerHTML.
 	var protectedAttrs = /\b(?:href|src|name)="[^"]*?"/gi;
@@ -165,7 +137,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		equals : function( otherImage, contentOnly )
 		{
-
 			var thisContents = this.contents,
 				otherContents = otherImage.contents;
 
@@ -426,7 +397,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			// Update current image with the actual editor
 			// content, since actualy content may differ from
 			// the original snapshot due to dom change. (#4622)
-			this.update();
+			this.snapshots.splice( this.index, 1, ( this.currentImage =  new Image( this.editor ) ) );
+
 			this.fireChange();
 		},
 
@@ -525,14 +497,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			}
 
 			return false;
-		},
-
-		/**
-		 * Update the last snapshot of the undo stack with the current editor content.
-		 */
-		update : function()
-		{
-			this.snapshots.splice( this.index, 1, ( this.currentImage = new Image( this.editor ) ) );
 		}
 	};
 })();

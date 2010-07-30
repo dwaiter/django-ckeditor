@@ -70,8 +70,7 @@ CKEDITOR.editor.prototype.createFakeElement = function( realElement, className, 
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),
 		_cke_realelement : encodeURIComponent( realElement.getOuterHtml() ),
 		_cke_real_node_type : realElement.type,
-		alt : lang[ realElementType ] || lang.unknown,
-		align : realElement.getAttribute( 'align' ) || ''
+		alt : lang[ realElementType ] || lang.unknown
 	};
 
 	if ( realElementType )
@@ -98,8 +97,7 @@ CKEDITOR.editor.prototype.createFakeParserElement = function( realElement, class
 		src : CKEDITOR.getUrl( 'images/spacer.gif' ),
 		_cke_realelement : encodeURIComponent( html ),
 		_cke_real_node_type : realElement.type,
-		alt : lang[ realElementType ] || lang.unknown,
-		align : realElement.attributes.align || ''
+		alt : lang[ realElementType ] || lang.unknown
 	};
 
 	if ( realElementType )
