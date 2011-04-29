@@ -1,7 +1,7 @@
 django-ckeditor
 ===============
 
-`django-ckeditor` makes it easy to use [CKEditor][] with your Django text
+`django-ckeditor` makes it easy to use [CKEditor][] with your Django 1.3+ text
 fields.
 
 [CKEditor]: http://ckeditor.com/
@@ -20,11 +20,6 @@ Install the package with [pip][] and [Mercurial][] or [git][]:
 [pip]: http://pip.openplans.org/
 [Mercurial]: http://hg-scm.org/
 [git]: http://git-scm.com/
-
-Symlink the necessary media and templates:
-
-    ln -s [/full/path/to]/django-ckeditor/ckeditor/media/ckeditor media/ckeditor
-    ln -s [/full/path/to]/django-ckeditor/ckeditor/templates/ckeditor templates/ckeditor
 
 Add `ckeditor` to your `INSTALLED_APPS`.
 
@@ -55,6 +50,10 @@ Add a `CKEDITOR_CONFIGS` variable to your `settings.py` with at least a
             'toolbarCanCollapse': False,
         }
     }
+
+Collect the static files:
+
+    python manage.py collectstatic
 
 Usage
 -----

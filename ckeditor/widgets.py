@@ -16,7 +16,7 @@ CKEDITOR_CONFIGS = dict((k, json.dumps(v)) for k, v in settings.CKEDITOR_CONFIGS
 FILEBROWSER_PRESENT = 'filebrowser' in getattr(settings, 'INSTALLED_APPS', [])
 GRAPPELLI_PRESENT = 'grappelli' in getattr(settings, 'INSTALLED_APPS', [])
 MEDIA_URL = getattr(
-    settings, 'CKEDITOR_MEDIA_URL', '%s/ckeditor' % settings.MEDIA_URL.rstrip('/')
+    settings, 'CKEDITOR_MEDIA_URL', '%s/ckeditor' % settings.STATIC_URL.rstrip('/')
 )
 
 _CSS_FILE = 'grappelli.css' if GRAPPELLI_PRESENT else 'standard.css'
