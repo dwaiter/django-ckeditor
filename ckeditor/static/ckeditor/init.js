@@ -9,7 +9,6 @@ window.Django_CKEditor_Configs = [];
                 if (django.jQuery.inArray(elid, done) == -1) {
                     var config = null;
                     django.jQuery.each(window.Django_CKEditor_Configs, function(i, val) {
-                        console.log('testing ' + elid + ' against ' + val.re_dammit);
                         if (val.re.test(elid)) {
                             config = val.config;
                             return false;
