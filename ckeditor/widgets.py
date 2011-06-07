@@ -15,9 +15,9 @@ from django.utils.safestring import mark_safe
 CKEDITOR_CONFIGS = dict((k, json.dumps(v)) for k, v in settings.CKEDITOR_CONFIGS.items())
 FILEBROWSER_PRESENT = 'filebrowser' in getattr(settings, 'INSTALLED_APPS', [])
 GRAPPELLI_PRESENT = 'grappelli' in getattr(settings, 'INSTALLED_APPS', [])
-MEDIA_URL = getattr(
-    settings, 'CKEDITOR_MEDIA_URL', '%s/ckeditor' % settings.STATIC_URL.rstrip('/')
-)
+
+MEDIA = getattr(settings, 'CKEDITOR_MEDIA_URL',
+                '%s' % settings.STATIC_URL.rstrip('/')).rstrip('/')
 
 _CSS_FILE = 'grappelli.css' if GRAPPELLI_PRESENT else 'standard.css'
 
@@ -33,11 +33,15 @@ class CKEditor(forms.Textarea):
 
     def render(self, name, value, attrs=None, **kwargs):
         rendered = super(CKEditor, self).render(name, value, attrs)
+
         context = {
             'name': name,
             'config': CKEDITOR_CONFIGS[self.ckeditor_config],
             'filebrowser': FILEBROWSER_PRESENT,
+            'is_inline': '__prefix__' in attrs['id'],
+            'regex': attrs['id'].replace('__prefix__', r'\d+'),
         }
+
         return rendered +  mark_safe(render_to_string(
             'ckeditor/ckeditor_script.html', context
         ))
@@ -50,11 +54,12 @@ class CKEditor(forms.Textarea):
 
     class Media:
         js = (
-            MEDIA_URL.rstrip('/') + '/ckeditor/ckeditor.js',
+            MEDIA + '/ckeditor/ckeditor/ckeditor.js',
+            MEDIA + '/ckeditor/init.js',
         )
         css = {
             'screen': (
-                MEDIA_URL.rstrip('/') + '/css/' + _CSS_FILE,
+                MEDIA + '/css/' + _CSS_FILE,
             ),
         }
 
