@@ -38,7 +38,10 @@ class CKEditor(forms.Textarea):
             'name': name,
             'config': CKEDITOR_CONFIGS[self.ckeditor_config],
             'filebrowser': FILEBROWSER_PRESENT,
-            'is_inline': '__prefix__' in attrs['id'],
+
+            # This "regex" should match the ID attribute of this field.
+            # The reason we use a regex is so we can handle inlines, which will have
+            # IDs like: id_subsection-6-description
             'regex': attrs['id'].replace('__prefix__', r'\d+'),
         }
 

@@ -5,8 +5,6 @@
         config: {{ config|safe }}
     });
 
-    // CKEDITOR.replace( 'id_{{ name }}', {{ config|safe }});
-    
     {% if filebrowser %}
         CKEDITOR.config.filebrowserBrowseUrl = '/admin/filebrowser/browse/?pop=3';
     {% endif %}
