@@ -19,7 +19,7 @@ else:
 
 setup(
     name='django-ckeditor',
-    version='0.9.3',
+    version='0.9.5',
     install_requires=install_requires,
     description=description,
     long_description=long_description,
