@@ -16,6 +16,23 @@ if os.path.exists(README_PATH):
 else:
     long_description = description
 
+packages, data_files = [], []
+root_dir = os.path.dirname(__file__)
+if root_dir != '':
+    os.chdir(root_dir)
+
+ckeditor_dir = 'ckeditor'
+
+for dirpath, dirnames, filenames in os.walk(ckeditor_dir):
+    # Ignore dirnames that start with '.'
+    for i, dirname in enumerate(dirnames):
+        if dirname.startswith('.'): del dirnames[i]
+    if '__init__.py' in filenames:
+        packages.append('.'.join(dirpath.split(os.sep)))
+    elif filenames:
+        data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
+
+#print data_files
 
 setup(
     name='django-ckeditor',
@@ -26,5 +43,6 @@ setup(
     author='Dumbwaiter Design',
     author_email='dev@dwaiter.com',
     url='http://bitbucket.org/dwaiter/django-ckeditor/',
-    packages=['ckeditor'],
+    packages=packages,
+    data_files=data_files,
 )
