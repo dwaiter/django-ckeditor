@@ -61,11 +61,11 @@ Usage
 To use CKEditor for a particular field in a form, set its widget to an
 instance of `ckeditor.widgets.CKEditor` like this:
 
-    from ckeditor.widgets import CKEditor
+    from ckeditor.widgets import CKEditorWidget
     
     class SampleForm(forms.Form):
         body = forms.CharField(
-            widget=CKEditor()
+            widget=CKEditorWidget()
         )
     
 
