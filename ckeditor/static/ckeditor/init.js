@@ -40,6 +40,9 @@ window.Django_CKEditor_Configs = [];
                         }
                     });
 
+                    // Fix issue with layout of label and CKEDITOR in Firefox and IE
+                    django.jQuery(el).before('<br/><br/>');
+                    
                     CKEDITOR.replace(elid, config);
                     done.push(elid);
                 }
