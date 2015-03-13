@@ -1,3 +1,8 @@
+DONT USE THIS
+===============
+
+Go use https://github.com/django-ckeditor/django-ckeditor instead!
+
 django-ckeditor
 ===============
 
